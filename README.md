@@ -1,10 +1,11 @@
 # 401-final
 ## Group Name :-
 
-- **Mohammad Momani**
-- **Manar Abdelkarim**
 - **Mohammad Ashour**
 - **Rawan Abu-Yasein**
+- **Mohammad Momani**
+- **Manar Abdelkarim**
+
 ------------------------------------------------------------------------------------------------
 ## **Conflict Plan**
 ###	What will be your group’s process to resolve conflict, when it arises?
