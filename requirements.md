@@ -8,3 +8,6 @@
 - As a user I want to be able to view,edit and delete previous board 
 - As a user I want to be able to set timer to mange the time `Stretch Goal`
 - As a user I want to be able to add a contributor to my board `Stretch Goal`
+
+
+
