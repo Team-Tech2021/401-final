@@ -118,4 +118,18 @@
 
 > - Trello : [trello](https://trello.com/b/JDl50w6A/team-tech2021)
 
+
+
+## Database Schema Diagram
+
+![img](images/diagram.png)
+
+
+## Wireframes
+
+![img](images/wireframes/board.jpg)
+![img](images/wireframes/home.jpg)
+![img](images/wireframes/login-form.jpg)
+![img](images/wireframes/signup-form.jpg)
+
 ------------------------------------------------------------------------------------------------
