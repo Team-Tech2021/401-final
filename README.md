@@ -131,9 +131,17 @@
 
 ## Wireframes
 
-![img](images/wireframes/board.jpg)
-![img](images/wireframes/home.jpg)
-![img](images/wireframes/login-form.jpg)
-![img](images/wireframes/signup-form.jpg)
+**Sign in**
+![img](images/wireframes/login-form.png)
+
+**Sign Up**
+![img](images/wireframes/signup-form.png)
+
+**Home**
+![img](images/wireframes/home.png)
+
+**Board**
+![img](images/wireframes/board.png)
+
 
 ------------------------------------------------------------------------------------------------
