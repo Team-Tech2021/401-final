@@ -1,4 +1,5 @@
 # 401-final
+
 ## Group Name :-
 
 - **Mohammad Ashour**
@@ -7,9 +8,12 @@
 - **Manar Abdelkarim**
 
 ------------------------------------------------------------------------------------------------
+
 ## **Conflict Plan**
+
 ###	What will be your group’s process to resolve conflict, when it arises?
-> - Our group will meet online and talk about it and we will vote , we will respect each other’s opinions and only talk in a respectable manner. 
+
+> - Our group will meet online and talk about it and we will vote , we will respect each other’s opinions and only talk in a respectable manner.
 
 ###	What will your team do if one person is taking over the project and not letting the other members contribute?
 
