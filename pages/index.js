@@ -1,3 +1,6 @@
+import Image from 'next/image'
+import Whiteboard from '../components/whiteboard'
+import styles from '../styles/Home.module.css'
 import Head from '../components/Head'
 import Header from '../components/Header'
 import Main from '../components/Main'
