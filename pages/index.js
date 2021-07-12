@@ -3,7 +3,7 @@ import Header from '../components/Header'
 import Main from '../components/Main'
 import ProblemsList from '../components/ProblemsList'
 import Footer from '../components/Footer'
-
+import Link from 'next/link'
 import {fetchAll} from '../services/problems-fetcher'
 import { useState } from 'react'
 
@@ -18,6 +18,7 @@ export default function Home({problems}) {
       </Head>
 
       <Header header={title}/>
+      <Link href="/timer"><a>Timer</a></Link>
       <Main title={title} />
       <ProblemsList problems={problems} />
       <Footer />
