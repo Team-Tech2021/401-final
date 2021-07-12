@@ -13,7 +13,7 @@ export default function Board(){
             </Head>
             <Header title="Board" className="border border-black"/>
             <CodeEditor />
-            <Whiteboard />
+            {/* <Whiteboard /> */}
             <Footer />
         </div>
     )

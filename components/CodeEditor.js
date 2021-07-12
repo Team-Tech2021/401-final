@@ -1,8 +1,6 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
 
-// import { webFetchOne } from "../services/fetch"
-
 
 export default function CodeEditor(props) {
 
@@ -11,8 +9,8 @@ export default function CodeEditor(props) {
 
     const [userId, setUserId] = useState(1)
     const [object, setObject] = useState('')
-    const [problemId, setProblemId] = useState(0)
     const [codeText, setCodeText] = useState('')
+    const [tokenCode, setTokenCode] = useState('')
 
     const baseUrl = 'kuro-space-rest-api.herokuapp.com/'
     const token = 'api/token/'
@@ -31,12 +29,12 @@ export default function CodeEditor(props) {
                 password: "kuro123",
             });
             const { refresh, access } = tokenResponse.data;
+            setTokenCode(access)
             const config = {
                 headers: { Authorization: `Bearer ${access}` }
             };
             const problemsResponse = await axios.get(base + "/api/v1/problem/", config);
-            // console.log(problemsResponse.data)
-            return problemsResponse.data[0]
+            return problemsResponse.data
         } catch (error) {
             console.error(error);
         }
@@ -44,99 +42,34 @@ export default function CodeEditor(props) {
     }
 
 
-
-    // async function getToken(username, password) {
-    //     console.log('inside get token funnn',await axios.post(`${baseUrl}api/token/`, {
-    //         username,
-    //         password
-    //     }))
-    //   }
-
-    // async function getToken(username, password){
-    //     const url = baseUrl + token
-    //     const response = axios.post(url, {
-    //         username,
-    //         password
-    //     })
-    //     return response
-    // }
-
-
-    // console.log(webFetchAll(), 'webfetch');
-
-
-
-
-
-
-
-
-    // async function getProblem(id){
-    //     const response = await getToken(user, pass)
-
-    //     const { access: token, refresh } = response.data
-    //     const url = baseUrl + problem + id
-    //     const config = {
-    //         headers: {
-    //             Authorization: `Bearer ${token}`
-    //         }
-    //     }
-    //     return (await axios.get(url, config))
-    // }
-
     const [starterCode, setStarterCode] = useState('')
-
+    const [problemTitle, setProblemTitle] = useState('')
+    const [problemDescription, setProblemDescription] = useState('')
+    const [problemId, setProblemId] = useState(1)
 
 
 
     useEffect(() => {
         const getProblem = async () => {
             const data = await webFetchAll()
-            console.log(data.starter);
-            setStarterCode(data.starter)
+            data.map(problem => {
+                if (problem.id == problemId) {
+                    setStarterCode(problem.starter)
+                    setProblemTitle(problem.title)
+                    setProblemDescription(problem.description)
+                    setProblemId(problem.id)
+                }
+            })
         }
         getProblem()
     }, [])
 
-    // export async function getStaticProps(){
-    //     const res = await fetch(baseUrl+code)
-    //     const data = await res.json()
-    //     if (!data) {
-    //       return {
-    //         notFound: true,
-    //       }
-    //     }
-    //     return {
-    //       props: { data }, // will be passed to the page component as props
-    //     }
-    // }
-
-
-    // async function getPreviousCode(idP, idU){
-    //     const response = await getToken(user, pass)
-
-    //     const url = baseUrl + code
-    //     const { access: token, refresh } = response.data
-    //     const config = {
-    //         headers: {
-    //             Authorization: `Bearer ${token}`
-    //         }
-    //     }
-
-
-    // let codeResponse = await axios.get(url, config)
-
-    // try{
-    //     codeResponse.objects
-    //     codeResponse.data.problem == idP && codeResponse.data.user == 
-    // }
-    // return codeResponse.data
-    // }
-
-    // console.log(getPreviousCode(1,1));
-
-    // setStarterCode(getPreviousCode(problemId).data.code)
-
+    const [raw, setRaw] = useState('')
+    const [output, setOutput] = useState('')
+    const [errors, setErrors] = useState('')
+    const [input, setInput] = useState('')
+    const [passed, setPassed] = useState(true)
+    const [status, setStatus] = useState(true)
 
 
     function handleTextArea(event) {
@@ -144,11 +77,48 @@ export default function CodeEditor(props) {
         return event.target.value
     }
 
-    function checkCode(event) {
+    async function webFetchCode() {
+        const tokenResponse = await login('kuro', 'kuro123')
+        const { refresh, access: token } = tokenResponse.data;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+        const response = await axios.get(`${baseUrl}${compile}?code=${codeText}&problem=${problemId}&user=${userId}&token=${tokenCode}`);
+        return response.data;
+    }
 
+    function checkCode(event) {
+        event.preventDefault()
+        try{
+
+            useEffect(() => {
+                const getResult = async () => {
+                    const data = await webFetchCode() //make sure whether data is an object so it will be used as the following or it is an array so we should map over it
+                    setRaw(data.stdout)
+                    setErrors(data.error)
+                    setInput(data.input)
+                    setStatus(True)
+                }
+                getResult()
+            }, [])
+
+            
+        }catch{
+                setStatus(false)
+        }
+    }
+
+    function submitCode(event){
+        event.preventDefault()
 
 
     }
+
+
+
+
 
 
 
@@ -157,22 +127,52 @@ export default function CodeEditor(props) {
         <div>
             <div>
                 <h1>
-                    title
+                    {problemTitle}
                 </h1>
-                <p>description</p>
+                <p>{problemDescription}</p>
                 <textarea id="codeEditor" name="code" onChange={handleTextArea} value={starterCode} />
 
             </div>
             <br />
-            <button type="button" id="submit-button">Submit Code</button>
+            <button type="button" id="submit-button" onClick={submitCode}>Submit Code</button>
             <button type="button" id="check-button" onClick={checkCode}>Check Button</button>
             <br />
             <br />
             <div id="output">
-                <h1>TestCase Output</h1>
+                <h1>Output</h1>
+                { status == true?
+                    errors.map(key => {
+
+                        if (key != 'passed') {
+                            <br>
+                                <h4>Test case {errors.indexOf(key)}</h4> - <p>{key}</p>
+                            </br>
+                        } else {
+                            <br><h4>Test Case {errors.indexOf(key)}</h4> - <p>{key}</p></br>
+                        }
+                    }):
+                    <br><h1>Oops! There is an error Please refresh the page to see if this will fix it, sorry fo the inconvenience</h1></br>
+                }
+
+
+                {
+                    status == true?
+                    errors.map(key=>{
+                        if (key !== 'passed') {
+                            <h1>You didn't pass all the tests, click run code button to check your output</h1>
+                            setPassed(false)
+                        }
+                    }):
+                    <br><h1>Oops! There is an error Please refresh the page to see if this will fix it, sorry fo the inconvenience</h1></br>
+                }
+                {
+                    passed == true ? <h1>Congratulations, you solved this problem</h1> : null
+
+                }
+
             </div>
             <div id="raw">
-                <h1>Raw Output</h1>
+                {raw}
             </div>
 
 
