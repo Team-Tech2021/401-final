@@ -1,30 +1,20 @@
 {
-  "name": "kuro-space",
+  "name": "with-tailwindcss",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start"
   },
   "dependencies": {
-    "@excalidraw/excalidraw": "^0.9.0",
-    "axios": "^0.21.1",
-    "next": "11.0.1",
+    "next": "latest",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-rough": "^2.3.0",
-    "react-router-dom": "^5.2.0",
-    "roughjs": "^4.4.1",
-    "scss": "^0.2.4"
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.6",
-    "eslint": "7.30.0",
-    "eslint-config-next": "11.0.1",
     "postcss": "^8.3.5",
-    "postcss-cli": "^8.3.1",
     "tailwindcss": "^2.2.4"
   }
 }
