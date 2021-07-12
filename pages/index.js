@@ -1,13 +1,18 @@
+import Image from 'next/image'
+import Whiteboard from '../components/whiteboard'
+import styles from '../styles/Home.module.css'
 import Head from '../components/Head'
 import Header from '../components/Header'
 import Main from '../components/Main'
+import ProblemsList from '../components/ProblemsList'
 import Footer from '../components/Footer'
 import LoginForm from '../components/Login'
 import Admin from '../components/Admin'
 import { Component, useState } from 'react'
 import { getToken } from '../services/data-fetcher'
+import {fetchAll} from '../services/problems-fetcher'
 
-export default function Home() {
+export default function Home({problems}) {
 
   const [savedPassword,setsavedPassword] = useState('test')
   const [logged,setLogged] = useState(false)
@@ -53,6 +58,7 @@ export default function Home() {
       <Head title={title}/>
       <Header header={title}/>
       <Main title={title} />
+      <ProblemsList problems={problems} />
       <Footer />
     </div>
   )
@@ -60,3 +66,12 @@ export default function Home() {
 
 }
 
+export async function getStaticProps() {
+  const problems = await fetchAll();
+
+  return {
+      props: { problems },
+      revalidate: 1,
+  }
+
+}
