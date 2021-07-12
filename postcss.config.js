@@ -1,11 +1,8 @@
+// If you want to use other PostCSS plugins, see the following:
+// https://tailwindcss.com/docs/using-with-preprocessors
 module.exports = {
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
-   darkMode: false, // or 'media' or 'class'
-   theme: {
-     extend: {},
-   },
-   variants: {
-     extend: {},
-   },
-   plugins: [],
- }
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
