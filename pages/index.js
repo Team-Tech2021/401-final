@@ -15,6 +15,7 @@ export default function Home() {
       </Head>
 
       <Header header={title}/>
+      <Link href="/timer"><a>Timer</a></Link>
       <Main title={title} />
       <Footer />
     </>
