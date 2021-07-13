@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Header from '../components/Header'
 import Main from '../components/Main'
 import Footer from '../components/Footer'
+import Link from 'next/dist/client/link'
 import { useState } from 'react'
 
 
@@ -15,7 +16,7 @@ export default function Home() {
       </Head>
 
       <Header header={title}/>
-      <Link href="/timer"><a>Timer</a></Link>
+      <Link href="/timer" className="text-right"><a>Timer</a></Link>
       <Main title={title} />
       <Footer />
     </>
