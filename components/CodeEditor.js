@@ -12,7 +12,7 @@ export default function CodeEditor(props) {
     const [codeText, setCodeText] = useState('')
     const [tokenCode, setTokenCode] = useState('')
 
-    const baseUrl = 'kuro-space-rest-api.herokuapp.com/'
+    const baseUrl = 'https://kuro-space-rest-api.herokuapp.com/'
     const token = 'api/token/'
     const code = 'api/v1/code/'
     const problem = `api/v1/problem/`
@@ -69,7 +69,8 @@ export default function CodeEditor(props) {
     const [errors, setErrors] = useState('')
     const [input, setInput] = useState('')
     const [passed, setPassed] = useState(true)
-    const [status, setStatus] = useState(true)
+    const [status, setStatus] = useState('')
+    const [errorState, setErrorState] = useState('')
 
 
     function handleTextArea(event) {
@@ -78,39 +79,61 @@ export default function CodeEditor(props) {
     }
 
     async function webFetchCode() {
-        const tokenResponse = await login('kuro', 'kuro123')
-        const { refresh, access: token } = tokenResponse.data;
+        // try{
+
+        const tokenResponse = await axios.post(baseUrl + 'api/token/', {
+            username: "kuro",
+            password: "kuro123",
+        });
+        const { refresh, access } = tokenResponse.data;
+        setTokenCode(access)
         const config = {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }
-        const response = await axios.get(`${baseUrl}${compile}?code=${codeText}&problem=${problemId}&user=${userId}&token=${tokenCode}`);
+            method: "post",
+            headers: { Authorization: `Bearer ${access}` },
+            url:`${baseUrl}${compile}`,
+            data: {code:codeText, problem:problemId}
+        };
+        // console.log();
+        // const { user } = useAuth0();
+        // console.log("user id:", user.sub);
+        
+        
+        const response = await axios(config);
+        console.log(response.data)
         return response.data;
+        // }catch(error){
+        //     console.error(error)
+        // }
+    }
+
+    async function getResult() {
+        const data = await webFetchCode() //make sure whether data is an object so it will be used as the following or it is an array so we should map over it
+        setRaw(data.stdout)
+        setErrors(data.error)
+        setInput(data.input)
+        setStatus(True)
     }
 
     function checkCode(event) {
-        event.preventDefault()
-        try{
+        // event.preventDefault()
+        // try{
+        // useEffect(() => {
+        // }, [])
+        try {
+            getResult()
 
-            useEffect(() => {
-                const getResult = async () => {
-                    const data = await webFetchCode() //make sure whether data is an object so it will be used as the following or it is an array so we should map over it
-                    setRaw(data.stdout)
-                    setErrors(data.error)
-                    setInput(data.input)
-                    setStatus(True)
-                }
-                getResult()
-            }, [])
-
-            
-        }catch{
-                setStatus(false)
+        } catch (error) {
+            console.error(error.response.data)
         }
+
+
+        // }catch{
+        // setStatus(false)
+        // setErrorState('Oops! There is an error Please refresh the page to see if this will fix it, sorry fo the inconvenience')
+        // }
     }
 
-    function submitCode(event){
+    function submitCode(event) {
         event.preventDefault()
 
 
@@ -130,7 +153,7 @@ export default function CodeEditor(props) {
                     {problemTitle}
                 </h1>
                 <p>{problemDescription}</p>
-                <textarea id="codeEditor" name="code" onChange={handleTextArea} value={starterCode} />
+                <textarea id="codeEditor" name="code" onChange={handleTextArea} defaultValue={starterCode} />
 
             </div>
             <br />
@@ -140,35 +163,34 @@ export default function CodeEditor(props) {
             <br />
             <div id="output">
                 <h1>Output</h1>
-                { status == true?
+                {status == true ?
                     errors.map(key => {
 
                         if (key != 'passed') {
-                            <br>
+                            <div>
                                 <h4>Test case {errors.indexOf(key)}</h4> - <p>{key}</p>
-                            </br>
+                            </div>
                         } else {
-                            <br><h4>Test Case {errors.indexOf(key)}</h4> - <p>{key}</p></br>
+                            <div><h4>Test Case {errors.indexOf(key)}</h4> - <p>{key}</p></div>
                         }
-                    }):
-                    <br><h1>Oops! There is an error Please refresh the page to see if this will fix it, sorry fo the inconvenience</h1></br>
+                    }) :
+                    <div><h1>{errorState}</h1></div>
                 }
 
 
                 {
-                    status == true?
-                    errors.map(key=>{
-                        if (key !== 'passed') {
-                            <h1>You didn't pass all the tests, click run code button to check your output</h1>
-                            setPassed(false)
-                        }
-                    }):
-                    <br><h1>Oops! There is an error Please refresh the page to see if this will fix it, sorry fo the inconvenience</h1></br>
+                    status == true ?
+                        errors.map(key => {
+                            if (key !== 'passed') {
+                                <h1>You didn't pass all the tests, click run code button to check your output</h1>
+                                setPassed(false)
+                            }
+                            passed == true ? <h1>Congratulations, you solved this problem</h1> : null
+                        }) :
+                        <div><h1>{errorState}</h1></div>
                 }
-                {
-                    passed == true ? <h1>Congratulations, you solved this problem</h1> : null
 
-                }
+
 
             </div>
             <div id="raw">
