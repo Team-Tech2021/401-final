@@ -14,7 +14,7 @@ const Stopwatch = () => (
     render={({ formatted, hours, minutes, seconds }) => {
       return (
         <div>
-          <p className="mr-5 text-2xl text-right">
+          <p className="rounded text-2xl  text-white bg-gray-800 p-5 w-60">
             Timer: { formatted }
           </p>
 

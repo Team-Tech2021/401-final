@@ -2,7 +2,7 @@ import React from 'react';
 
 function BtnComponent(props) {
   return (
-    <div>
+    <div className="align-items">
       {(props.status === 0)? 
         <button className="stopwatch-btn stopwatch-btn-gre"
         onClick={props.start}>Start</button> : ""
