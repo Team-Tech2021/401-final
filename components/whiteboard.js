@@ -273,6 +273,8 @@ export default function Whiteboard() {
                         <button onClick={redo}>Redo</button>
                     </div>
             </div>
+            {
+                window &&
             <canvas
                 id="canvas"
                 
@@ -284,6 +286,8 @@ export default function Whiteboard() {
             >
                 Canvas
             </canvas>
+
+            }
         </div>
     );
 };
