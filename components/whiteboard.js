@@ -230,7 +230,7 @@ export default function Whiteboard() {
     };
 
     return (
-        <div className="border border-black bg-pink-50 ">
+        <div className="border-4 border-black bg-gray-50 ">
             <div className="flex justify-start">
                 <div id="forSelection">
                     <input
@@ -270,20 +270,20 @@ export default function Whiteboard() {
                 </div>
                     <div className="">
                         <button onClick={undo} className="ml-10 mr-10 border border-black">Undo</button>
-                        <button onClick={redo}>Redo</button>
+                        <button onClick={redo} className="ml-10 mr-10 border border-black">Redo</button>
                     </div>
             </div>
             {
-                window &&
-            <canvas
-                id="canvas"
-                
-                width={window.innerWidth}
-                height={window.innerHeight}
-                onMouseDown={handleMouseDown}
-                onMouseMove={handleMouseMove}
-                onMouseUp={handleMouseUp}
-            >
+                typeof(window) != "undefined" &&
+                <canvas
+                    id="canvas"
+                    
+                    width={window.innerWidth}
+                    height={window.innerHeight}
+                    onMouseDown={handleMouseDown}
+                    onMouseMove={handleMouseMove}
+                    onMouseUp={handleMouseUp}
+                >
                 Canvas
             </canvas>
 

@@ -90,14 +90,14 @@ export default function CodeEditor(props) {
         const config = {
             method: "post",
             headers: { Authorization: `Bearer ${access}` },
-            url:`${baseUrl}${compile}`,
-            data: {code:codeText, problem:problemId}
+            url: `${baseUrl}${compile}`,
+            data: { code: codeText, problem: problemId }
         };
         // console.log();
         // const { user } = useAuth0();
         // console.log("user id:", user.sub);
-        
-        
+
+
         const response = await axios(config);
         console.log(response.data)
         return response.data;
@@ -147,56 +147,62 @@ export default function CodeEditor(props) {
 
 
     return (
-        <div>
-            <div>
-                <h1>
+        <div className="flex flex-row w-full h-screen mb-20">
+            <div className="flex flex-col w-1/2 ml-3 border-4 border-black rounded-lg">
+                <h1 className="m-3 text-4xl">
                     {problemTitle}
                 </h1>
-                <p>{problemDescription}</p>
-                <textarea id="codeEditor" name="code" onChange={handleTextArea} defaultValue={starterCode} />
-
+                <p className="m-3 text-lg">{problemDescription}</p>
             </div>
-            <br />
-            <button type="button" id="submit-button" onClick={submitCode}>Submit Code</button>
-            <button type="button" id="check-button" onClick={checkCode}>Check Button</button>
-            <br />
-            <br />
-            <div id="output">
-                <h1>Output</h1>
-                {status == true ?
-                    errors.map(key => {
+            <div className="w-1/2 h-full p-1 ml-5 border-4 border-black rounded-lg ">
 
-                        if (key != 'passed') {
-                            <div>
-                                <h4>Test case {errors.indexOf(key)}</h4> - <p>{key}</p>
-                            </div>
-                        } else {
-                            <div><h4>Test Case {errors.indexOf(key)}</h4> - <p>{key}</p></div>
-                        }
-                    }) :
-                    <div><h1>{errorState}</h1></div>
-                }
+                <textarea className="w-full p-1 text-black bg-white border-2 border-black rounded-lg h-3/4 " id="codeEditor" name="code" onChange={handleTextArea} defaultValue={starterCode} />
 
+                <br />
+                <div className="flex justify-between m-3">
+                <button className="p-2 text-lg border-2 border-black rounded " type="button" id="check-button" onClick={checkCode}>Check Code</button>
+                <button className="p-2 text-lg border-2 border-black rounded " type="button" id="submit-button" onClick={submitCode}>Submit Code</button>
+                </div>
 
-                {
-                    status == true ?
+                <br />
+                <br />
+                <div id="output">
+                    <h1>Output</h1>
+                    {status == true ?
                         errors.map(key => {
-                            if (key !== 'passed') {
-                                <h1>You didn't pass all the tests, click run code button to check your output</h1>
-                                setPassed(false)
+
+                            if (key != 'passed') {
+                                <div>
+                                    <h4>Test case {errors.indexOf(key)}</h4> - <p>{key}</p>
+                                </div>
+                            } else {
+                                <div><h4>Test Case {errors.indexOf(key)}</h4> - <p>{key}</p></div>
                             }
-                            passed == true ? <h1>Congratulations, you solved this problem</h1> : null
                         }) :
                         <div><h1>{errorState}</h1></div>
-                }
+                    }
 
 
+                    {
+                        status == true ?
+                            errors.map(key => {
+                                if (key !== 'passed') {
+                                    <h1>You didn't pass all the tests, click run code button to check your output</h1>
+                                    setPassed(false)
+                                }
+                                passed == true ? <h1>Congratulations, you solved this problem</h1> : null
+                            }) :
+                            <div><h1>{errorState}</h1></div>
+                    }
+
+
+
+                </div>
+                <div id="raw">
+                    {raw}
+                </div>
 
             </div>
-            <div id="raw">
-                {raw}
-            </div>
-
 
 
         </div>
