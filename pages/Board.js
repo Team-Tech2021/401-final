@@ -19,14 +19,13 @@ export default function Board(){
     }
 
     return(
-        <div className="overflow-x-hidden">
+        <div className="overflow-x-hidden bg-gray-300">
             <Head>
                 <title>Board</title>
             </Head>
             <Header title="Board" className="text-right border border-black"/>
-            {/* <Link href="/timer"><a>Timer</a></Link> */}
-            <div className="flex">
-            <button onClick={startTimer} className="text-lg">start</button>
+            <div className="grid grid-cols-2 gap-2 place-items-center p-5">
+            <button onClick={startTimer} className="bg-blue-500 p-5  text-white rounded focus:bg-red-700 w-36">Start</button>
             {
                 start &&   
                 <Stopwatch />

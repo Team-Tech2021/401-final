@@ -230,7 +230,7 @@ export default function Whiteboard() {
     };
 
     return (
-        <div className="border-4 border-black bg-gray-50 ">
+        <div className="bg-gray-100 shadow-xl shadow-inner py-6 sm:py-12  bg-gray-50 ">
             <div className="flex justify-start">
                 <div id="forSelection">
                     <input

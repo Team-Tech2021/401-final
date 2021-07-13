@@ -148,25 +148,25 @@ export default function CodeEditor(props) {
 
     return (
         <div className="flex flex-row w-full h-screen mb-20">
-            <div className="flex flex-col w-1/2 ml-3 border-4 border-black rounded-lg">
-                <h1 className="m-3 text-4xl">
+            <div className="flex flex-col w-1/2 ml-3 bg-white shadow-lg rounded-lg">
+                <h1 className="m-3 text-4xl text-center">
                     {problemTitle}
                 </h1>
                 <p className="m-3 text-lg">{problemDescription}</p>
             </div>
-            <div className="w-1/2 h-full p-1 ml-5 border-4 border-black rounded-lg ">
+            <div className="w-1/2 h-full p-1 ml-5 bg-gray-100 shadow-lg rounded-lg mb-20">
 
-                <textarea className="w-full p-1 text-black bg-white border-2 border-black rounded-lg h-3/4 " id="codeEditor" name="code" onChange={handleTextArea} defaultValue={starterCode} />
+                <textarea className="w-full p-1 font-bold text-white bg-gray-900  shadow-lg -12 rounded-lg h-3/4 mb-20 " id="codeEditor" name="code" onChange={handleTextArea} defaultValue={starterCode} />
 
                 <br />
-                <div className="flex justify-between m-3">
-                <button className="p-2 text-lg border-2 border-black rounded " type="button" id="check-button" onClick={checkCode}>Check Code</button>
-                <button className="p-2 text-lg border-2 border-black rounded " type="button" id="submit-button" onClick={submitCode}>Submit Code</button>
+                <div className="flex justify-between m-3 mb-20">
+                <button className="bg-blue-500 p-4 text-white rounded hover:bg-blue-700 hover:shadow-xl" type="button" id="check-button" onClick={checkCode}>Check Code</button>
+                <button className="bg-red-500 p-4 text-white rounded hover:bg-red-700 hover:shadow-xl" type="button" id="submit-button" onClick={submitCode}>Submit Code</button>
                 </div>
 
                 <br />
                 <br />
-                <div id="output">
+                <div id="output" className ="bg-blue-500 w-full  text-black shadow-lg my-6   rounded-lg h-1/4 ">
                     <h1>Output</h1>
                     {status == true ?
                         errors.map(key => {
