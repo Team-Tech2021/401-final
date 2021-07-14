@@ -49,7 +49,7 @@ async function webFetchAll() {
     try {
 
         const tokenResponse = await axios.post(base + '/api/token/', {
-            username: "kuro",
+            email: "rawan@gmail.com",
             password: "kuro123",
         });
 
@@ -60,7 +60,7 @@ async function webFetchAll() {
         };
 
         const problemsResponse = await axios.get(base + "/api/v1/problem/", config);
-        // console.log(problemsResponse.data)
+        console.log(problemsResponse.data)
 
         return problemsResponse.data
 
@@ -79,7 +79,7 @@ async function webFetchOne(id) {
     try {
 
         const tokenResponse = await axios.post(base + '/api/token/', {
-            username: "kuro",
+            email: "rawan@gmail.com",
             password: "kuro123",
         });
 

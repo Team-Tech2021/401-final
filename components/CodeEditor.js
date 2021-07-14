@@ -25,7 +25,7 @@ export default function CodeEditor(props) {
         const base = 'https://kuro-space-rest-api.herokuapp.com'
         try {
             const tokenResponse = await axios.post(base + '/api/token/', {
-                username: "kuro",
+                email: "rawan@gmail.com",
                 password: "kuro123",
             });
             const { refresh, access } = tokenResponse.data;
@@ -82,7 +82,7 @@ export default function CodeEditor(props) {
         // try{
 
         const tokenResponse = await axios.post(baseUrl + 'api/token/', {
-            username: "kuro",
+            email: "rawan@gmail.com",
             password: "kuro123",
         });
         const { refresh, access } = tokenResponse.data;
@@ -148,25 +148,25 @@ export default function CodeEditor(props) {
 
     return (
         <div className="flex flex-row w-full h-screen mb-20">
-            <div className="flex flex-col w-1/2 ml-3 bg-white shadow-lg rounded-lg">
+            <div className="flex flex-col w-1/2 ml-3 bg-white rounded-lg shadow-lg">
                 <h1 className="m-3 text-4xl text-center">
                     {problemTitle}
                 </h1>
                 <p className="m-3 text-lg">{problemDescription}</p>
             </div>
-            <div className="w-1/2 h-full p-1 ml-5 bg-gray-100 shadow-lg rounded-lg mb-20">
+            <div className="w-1/2 h-full p-1 mb-20 ml-5 bg-gray-100 rounded-lg shadow-lg">
 
-                <textarea className="w-full p-1 font-bold text-white bg-gray-900  shadow-lg -12 rounded-lg h-3/4 mb-20 " id="codeEditor" name="code" onChange={handleTextArea} defaultValue={starterCode} />
+                <textarea className="w-full p-1 mb-20 font-bold text-white bg-gray-900 rounded-lg shadow-lg -12 h-3/4 " id="codeEditor" name="code" onChange={handleTextArea} defaultValue={starterCode} />
 
                 <br />
                 <div className="flex justify-between m-3 mb-20">
-                <button className="bg-blue-500 p-4 text-white rounded hover:bg-blue-700 hover:shadow-xl" type="button" id="check-button" onClick={checkCode}>Check Code</button>
-                <button className="bg-red-500 p-4 text-white rounded hover:bg-red-700 hover:shadow-xl" type="button" id="submit-button" onClick={submitCode}>Submit Code</button>
+                <button className="p-4 text-white bg-blue-500 rounded hover:bg-blue-700 hover:shadow-xl" type="button" id="check-button" onClick={checkCode}>Check Code</button>
+                <button className="p-4 text-white bg-red-500 rounded hover:bg-red-700 hover:shadow-xl" type="button" id="submit-button" onClick={submitCode}>Submit Code</button>
                 </div>
 
                 <br />
                 <br />
-                <div id="output" className ="bg-blue-500 w-full  text-black shadow-lg my-6   rounded-lg h-1/4 ">
+                <div id="output" className ="w-full my-6 text-black bg-blue-500 rounded-lg shadow-lg h-1/4 ">
                     <h1>Output</h1>
                     {status == true ?
                         errors.map(key => {
