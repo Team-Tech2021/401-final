@@ -1,19 +1,23 @@
-import React from 'react';
+import React from "react";
 
 function DisplayComponent(props) {
   const h = () => {
-     if(props.time.h === 0){
-       return '';
-     }else {
-       return <span>{(props.time.h >= 10)? props.time.h : "0"+ props.time.h}</span>;
-     }
-  }
+    if (props.time.h === 0) {
+      return "";
+    } else {
+      return (
+        <span>{props.time.h >= 10 ? props.time.h : "0" + props.time.h}</span>
+      );
+    }
+  };
   return (
-    <div>
-       {h()}&nbsp;&nbsp;
-       <span>{(props.time.m >= 10)? props.time.m : "0"+ props.time.m}</span>&nbsp;:&nbsp;
-       <span>{(props.time.s >= 10)? props.time.s : "0"+ props.time.s}</span>&nbsp;:&nbsp;
-       <span>{(props.time.ms >= 10)? props.time.ms : "0"+ props.time.ms}</span>
+    <div className="bg-blue-500 p-5  text-white rounded focus:bg-red-700 w-36 justify-self-end ">
+      {h()}&nbsp;&nbsp;
+      <span>{props.time.m >= 10 ? props.time.m : "0" + props.time.m}</span>
+      &nbsp;:&nbsp;
+      <span>{props.time.s >= 10 ? props.time.s : "0" + props.time.s}</span>
+      &nbsp;:&nbsp;
+      <span>{props.time.ms >= 10 ? props.time.ms : "0" + props.time.ms}</span>
     </div>
   );
 }
