@@ -36,7 +36,6 @@ export default function Home({problems}) {
         <title>{title}</title>
       </Head>
       <Header header={title}/>
-      <Link href="/timer"><a>Timer</a></Link>
       <ProblemsList problems={problems} />
       <Footer />
       </div>

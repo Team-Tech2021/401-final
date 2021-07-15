@@ -4,37 +4,40 @@ import { useState, useEffect } from "react"
 
 export default function CodeEditor(props) {
 
-    const [user, setUser] = useState('kuro')
-    const [pass, setPass] = useState('kuro123')
+    const [user, setUser] = useState('kuro') //username
+    const [pass, setPass] = useState('koko@123') //password
 
-    const [userId, setUserId] = useState(1)
-    const [object, setObject] = useState('')
-    const [codeText, setCodeText] = useState('')
-    const [tokenCode, setTokenCode] = useState('')
+    const [codeText, setCodeText] = useState('')  // This will have the code and will be encoded
+    const [tokenCode, setTokenCode] = useState('') // for token so we use it in the calls
 
+    
     const baseUrl = 'https://kuro-space-rest-api.herokuapp.com/'
-    const token = 'api/token/'
-    const code = 'api/v1/code/'
-    const problem = `api/v1/problem/`
-    const compile = 'problems/compile/'
+    const token = 'api/token/'  //gets token for login {post}
+    const code = 'api/v1/code/' //gets the previous code {get}
+    const problem = `api/v1/problem/` //gets the problem {get}
+    const compile = 'problems/compile/' // checks the if the code  is correct {post} don't use
+    const check = 'problems/check-code/' // checks the if the code  is correct {post}
+    const checkPass = 'api/v1/passed/'  // checks if the problem is solved before
 
 
 
 
     async function webFetchAll() {
-        const base = 'https://kuro-space-rest-api.herokuapp.com'
+        /**
+         * This function will get the token then gets all the problems
+         */
         try {
-            const tokenResponse = await axios.post(base + '/api/token/', {
-                email: "rawan@gmail.com",
-                password: "kuro123",
+            const tokenResponse = await axios.post(baseUrl + token, {
+                username: "kuro",
+                password: "koko@123",
             });
             const { refresh, access } = tokenResponse.data;
             setTokenCode(access)
             const config = {
                 headers: { Authorization: `Bearer ${access}` }
             };
-            const problemsResponse = await axios.get(base + "/api/v1/problem/", config);
-            return problemsResponse.data
+            const problemsResponse = await axios.get(baseUrl + problem, config);
+            return problemsResponse.data  //The return is array of problems
         } catch (error) {
             console.error(error);
         }
@@ -42,13 +45,18 @@ export default function CodeEditor(props) {
     }
 
 
+    
+
+
     const [starterCode, setStarterCode] = useState('')
     const [problemTitle, setProblemTitle] = useState('')
     const [problemDescription, setProblemDescription] = useState('')
-    const [problemId, setProblemId] = useState(1)
+    const [problemId, setProblemId] = useState(props.id)
+    const [hint, setHint] = useState('')
 
+    console.log({'problemmm':problemId});
 
-
+    //Gets the problem that has the id given from the problems page
     useEffect(() => {
         const getProblem = async () => {
             const data = await webFetchAll()
@@ -58,32 +66,92 @@ export default function CodeEditor(props) {
                     setProblemTitle(problem.title)
                     setProblemDescription(problem.description)
                     setProblemId(problem.id)
+                    setHint(problem.hint)
                 }
             })
         }
         getProblem()
     }, [])
 
-    const [raw, setRaw] = useState('')
+
     const [output, setOutput] = useState('')
-    const [errors, setErrors] = useState('')
-    const [input, setInput] = useState('')
     const [passed, setPassed] = useState(true)
-    const [status, setStatus] = useState('')
-    const [errorState, setErrorState] = useState('')
+    const [status, setStatus] = useState(false) //to see if submit button is pressed
+    const [errorState, setErrorState] = useState('') 
+    const [stdOut, setStdOut] = useState('')
+    const [passState, setPassState] = useState('')
+    const [codeCheck, setCodeCheck] = useState(false) // to see if the check button is pressed
+    const [submitOutput, setSubmitOutput] = useState('')
+    const [submitError, setSubmitError] = useState('')
+    const [atLeastOneFailed, setAtLeastOneFailed] = useState('')
+    const [shouldPassAll, setShouldPassAll] = useState('')
+    const [AllPassed, setAllPassed] = useState('')
 
 
     function handleTextArea(event) {
-        setCodeText(event.target.value)
+        let text = event.target.value
+        setCodeText(encodeURIComponent(text))
+
         return event.target.value
     }
 
+
+    // Check Code Button 
     async function webFetchCode() {
-        // try{
+
+        /**
+         * This will get the test result
+         */
 
         const tokenResponse = await axios.post(baseUrl + 'api/token/', {
-            email: "rawan@gmail.com",
-            password: "kuro123",
+            username: "kuro",
+            password: "koko@123",
+        });
+        const { refresh, access } = tokenResponse.data;
+
+        setTokenCode(access)
+        console.log(access);
+        const config = {
+            method: "post",
+            headers: { Authorization: `Bearer ${access}` },
+            url: `${baseUrl}${check}`,
+            data: { code: codeText, problem: problemId }
+        };
+        const response = await axios(config);
+        return response.data;
+    }
+
+    async function getResult() {
+        const data = await webFetchCode() //make sure whether data is an object so it will be used as the following or it is an array so we should map over it
+        setStdOut(data.data)
+        setAtLeastOneFailed('At least one test failed')
+        setPassState(data.pass)
+        setAtLeastOneFailed('')
+    }
+
+    function checkCode(event) {
+        try {
+            setStdOut('')
+            getResult()
+            setCodeCheck(true)
+
+        } catch (error) {
+            console.error(error.response.data)
+            setErrorState('Oops! There is an error Please refresh the page to see if this will fix it, sorry fo the inconvenience')
+            setStatus(false)
+        }
+    }
+
+
+    
+    //////Submit Code Button
+    async function webFetchSubmit(){
+        /**
+         * This function will add the code to the passed table
+         */
+        const tokenResponse = await axios.post(baseUrl + 'api/token/', {
+            username: "kuro",
+            password: "koko@123",
         });
         const { refresh, access } = tokenResponse.data;
         setTokenCode(access)
@@ -93,54 +161,29 @@ export default function CodeEditor(props) {
             url: `${baseUrl}${compile}`,
             data: { code: codeText, problem: problemId }
         };
-        // console.log();
-        // const { user } = useAuth0();
-        // console.log("user id:", user.sub);
-
-
         const response = await axios(config);
-        console.log(response.data)
         return response.data;
-        // }catch(error){
-        //     console.error(error)
-        // }
     }
+    async function submitResult() {
 
-    async function getResult() {
-        const data = await webFetchCode() //make sure whether data is an object so it will be used as the following or it is an array so we should map over it
-        setRaw(data.stdout)
-        setErrors(data.error)
-        setInput(data.input)
-        setStatus(True)
+        const data = await webFetchSubmit() //make sure whether data is an object so it will be used as the following or it is an array so we should map over it
+        setStdOut(data.data)
+        setSubmitOutput('Your solution has been submitted successfully')
+        // alert('Your solution has been submitted successfully')
+        setStatus(true)
     }
-
-    function checkCode(event) {
-        // event.preventDefault()
-        // try{
-        // useEffect(() => {
-        // }, [])
-        try {
-            getResult()
-
-        } catch (error) {
-            console.error(error.response.data)
-        }
-
-
-        // }catch{
-        // setStatus(false)
-        // setErrorState('Oops! There is an error Please refresh the page to see if this will fix it, sorry fo the inconvenience')
-        // }
-    }
-
-    function submitCode(event) {
+    async function submitCode(event) {
         event.preventDefault()
-
-
+        setSubmitError('')
+        setSubmitOutput('')
+        const data = await webFetchCode()
+        data.pass? submitResult(): setSubmitError('You have to pass all the tests in order to submit your result')
     }
 
-
-
+    function popUp(event){
+        event.preventDefault()
+        alert(hint)
+    }
 
 
 
@@ -156,55 +199,38 @@ export default function CodeEditor(props) {
             </div>
             <div className="w-1/2 h-full p-1 mb-20 ml-5 bg-gray-100 rounded-lg shadow-lg">
 
-                <textarea className="w-full p-1 mb-20 font-bold text-white bg-gray-900 rounded-lg shadow-lg -12 h-3/4 " id="codeEditor" name="code" onChange={handleTextArea} defaultValue={starterCode} />
+                <textarea tabIndex="2" className="w-full p-1 mb-20 font-bold text-white bg-gray-900 rounded-lg shadow-lg -12 h-3/4 " id="codeEditor" name="code" onChange={handleTextArea} defaultValue={starterCode} />
 
                 <br />
                 <div className="flex justify-between m-3 mb-20">
-                <button className="p-4 text-white bg-blue-500 rounded hover:bg-blue-700 hover:shadow-xl" type="button" id="check-button" onClick={checkCode}>Check Code</button>
-                <button className="p-4 text-white bg-red-500 rounded hover:bg-red-700 hover:shadow-xl" type="button" id="submit-button" onClick={submitCode}>Submit Code</button>
+                    <button className="p-4 text-white bg-blue-500 rounded hover:bg-blue-700 hover:shadow-xl" type="button" id="check-button" onClick={checkCode}>Check Code</button>
+                    <button className="border-gray-900 " onClick={popUp} >hint</button>
+                    <button className="p-4 text-white bg-red-500 rounded hover:bg-red-700 hover:shadow-xl" type="button" id="submit-button" onClick={submitCode}>Submit Code</button>
                 </div>
-
-                <br />
-                <br />
-                <div id="output" className ="w-full my-6 text-black bg-blue-500 rounded-lg shadow-lg h-1/4 ">
+                <div id="output" className="w-full my-6 overflow-scroll text-black bg-blue-500 rounded-lg shadow-lg h-1/4 ">
                     <h1>Output</h1>
-                    {status == true ?
-                        errors.map(key => {
+                    {passState?
+                    <div>
+                    <p>{stdOut}</p>
 
-                            if (key != 'passed') {
-                                <div>
-                                    <h4>Test case {errors.indexOf(key)}</h4> - <p>{key}</p>
-                                </div>
-                            } else {
-                                <div><h4>Test Case {errors.indexOf(key)}</h4> - <p>{key}</p></div>
-                            }
-                        }) :
-                        <div><h1>{errorState}</h1></div>
-                    }
+                    <p className="text-green-500">All Tests Passed</p>
 
-
+                    </div>: codeCheck?
+                    <div>
+                        <p>{stdOut}</p>
+                        <p className="text-red-600">'At least one test failed'</p>
+                    </div>:
+                    <p>{stdOut}</p>
+                }
                     {
                         status == true ?
-                            errors.map(key => {
-                                if (key !== 'passed') {
-                                    <h1>You didn't pass all the tests, click run code button to check your output</h1>
-                                    setPassed(false)
-                                }
-                                passed == true ? <h1>Congratulations, you solved this problem</h1> : null
-                            }) :
-                            <div><h1>{errorState}</h1></div>
+                        <div>
+                            <p>{submitResult}</p>
+                        </div>:
+                        <div><p>{submitError}</p></div>
                     }
-
-
-
                 </div>
-                <div id="raw">
-                    {raw}
-                </div>
-
             </div>
-
-
         </div>
     )
 }
