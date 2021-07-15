@@ -1,12 +1,11 @@
-import React, {useState} from 'react';
-import DisplayComponent from '../components/TimerComponent/DisplayComponent';
-import BtnComponent from '../components/TimerComponent/BtnComponent';
+import React, { useState } from "react";
+import DisplayComponent from "../components/TimerComponent/DisplayComponent";
+import BtnComponent from "../components/TimerComponent/BtnComponent";
 
-import Link from 'next/link'
-
+import Link from "next/link";
 
 function Timer() {
-  const [time, setTime] = useState({ms:0, s:0, m:0, h:0});
+  const [time, setTime] = useState({ ms: 0, s: 0, m: 0, h: 0 });
   const [interv, setInterv] = useState();
   const [status, setStatus] = useState(0);
   // Not started = 0
@@ -19,23 +18,26 @@ function Timer() {
     setInterv(setInterval(run, 10));
   };
 
-  var updatedMs = time.ms, updatedS = time.s, updatedM = time.m, updatedH = time.h;
+  var updatedMs = time.ms,
+    updatedS = time.s,
+    updatedM = time.m,
+    updatedH = time.h;
 
   const run = () => {
-    if(updatedM === 60){
+    if (updatedM === 60) {
       updatedH++;
       updatedM = 0;
     }
-    if(updatedS === 60){
+    if (updatedS === 60) {
       updatedM++;
       updatedS = 0;
     }
-    if(updatedMs === 100){
+    if (updatedMs === 100) {
       updatedS++;
       updatedMs = 0;
     }
     updatedMs++;
-    return setTime({ms:updatedMs, s:updatedS, m:updatedM, h:updatedH});
+    return setTime({ ms: updatedMs, s: updatedS, m: updatedM, h: updatedH });
   };
 
   const stop = () => {
@@ -46,23 +48,25 @@ function Timer() {
   const reset = () => {
     clearInterval(interv);
     setStatus(0);
-    setTime({ms:0, s:0, m:0, h:0})
+    setTime({ ms: 0, s: 0, m: 0, h: 0 });
   };
 
   const resume = () => start();
 
-
   return (
     <>
-    <div className="main-section">
-     <div className="clock-holder">
-          <div className="stopwatch">
-               <DisplayComponent time={time}/>
-               <BtnComponent status={status} resume={resume} reset={reset} stop={stop} start={start}/>
-          </div>
-
-     </div>
-    </div>
+      <div className="main-section m-3">
+        <div className="grid grid-cols-3 gap-3 ">
+          <DisplayComponent time={time} />
+          <BtnComponent
+            status={status}
+            resume={resume}
+            reset={reset}
+            stop={stop}
+            start={start}
+          />
+        </div>
+      </div>
     </>
   );
 }
