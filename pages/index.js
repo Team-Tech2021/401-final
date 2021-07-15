@@ -16,7 +16,7 @@ export default function Home({problems}) {
         <title>{title}</title>
       </Head>
       <Header header={title}/>
-      <Link href="/timer"><a>Timer</a></Link>
+      {/* <Link href="/timer"><a>Timer</a></Link> */}
       {/* <Main title={title} /> */}
       <ProblemsList problems={problems} />
       <Footer />

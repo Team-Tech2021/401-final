@@ -63,9 +63,6 @@ function Timer() {
 
      </div>
     </div>
-    <h1>
-    <Link href="/"><a>Return to Main page</a></Link>
-    </h1>
     </>
   );
 }

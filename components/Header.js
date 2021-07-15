@@ -22,7 +22,7 @@ export default function Header(props) {
                     <a href="/whiteboard" className="block mx-4 mt-2 text-sm text-gray-700 capitalize md:mt-0 hover:text-blue-600">Whiteboard</a>
                     <a href="/replit" className="block mx-4 mt-2 text-sm text-gray-700 capitalize md:mt-0 hover:text-blue-600">Code Editor </a>
                     <a href="/" className="block mx-4 mt-2 text-sm text-gray-700 capitalize md:mt-0 hover:text-blue-600">Problems </a>
-                    <a href="/Board" className="block mx-4 mt-2 text-sm text-gray-700 capitalize md:mt-0 hover:text-blue-600">Board </a>
+                    {/* <a href="/Board" className="block mx-4 mt-2 text-sm text-gray-700 capitalize md:mt-0 hover:text-blue-600">Board </a> */}
                     <a href="#" className="block mx-4 mt-2 text-sm text-gray-700 capitalize md:mt-0 hover:text-blue-600">Contact</a>
                 </div>
             </div>

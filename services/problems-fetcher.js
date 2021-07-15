@@ -44,13 +44,13 @@ function mockFetchOne(id) {
 
 async function webFetchAll() {
 
-    const base = 'https://kuro-space-rest-api.herokuapp.com'
+    const base = 'https://kuro-space-rest-api.herokuapp.com/'
 
     try {
 
-        const tokenResponse = await axios.post(base + '/api/token/', {
-            email: "rawan@gmail.com",
-            password: "kuro123",
+        const tokenResponse = await axios.post(base + 'api/token/', {
+            username: "kuro",
+            password: "koko@123",
         });
 
         const { refresh, access } = tokenResponse.data;
@@ -59,7 +59,7 @@ async function webFetchAll() {
             headers: { Authorization: `Bearer ${access}` }
         };
 
-        const problemsResponse = await axios.get(base + "/api/v1/problem/", config);
+        const problemsResponse = await axios.get(base + "api/v1/problem/", config);
         console.log(problemsResponse.data)
 
         return problemsResponse.data
@@ -74,13 +74,14 @@ async function webFetchAll() {
 
 async function webFetchOne(id) {
 
-    const base = 'https://kuro-space-rest-api.herokuapp.com'
+    const base = 'https://kuro-space-rest-api.herokuapp.com/'
+
 
     try {
 
         const tokenResponse = await axios.post(base + '/api/token/', {
-            email: "rawan@gmail.com",
-            password: "kuro123",
+            username: "kuro",
+            password: "koko@123",
         });
 
         const { refresh, access } = tokenResponse.data;
