@@ -1,5 +1,5 @@
 
-import {postData} from '../../pages/posts'
+import {postData} from '../posts'
 import { useState } from 'react'
 
 export default function SignUp() {
@@ -15,13 +15,13 @@ export default function SignUp() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-blue-400">
+        <div className="flex items-center justify-center min-h-screen bg-blue-400">
 
        
-        <div className="bg-white p-16 rounded shadow-2xl w-2/3">
+        <div className="w-2/3 p-16 bg-white rounded shadow-2xl">
 
-        <h2 className="text-3xl font-bold mb-10 text-gray-800">Create Your Account</h2>
-        <div className="md:w-full max-w-2xl mx-auto px-4 py-5 shadow-none">
+        <h2 className="mb-10 text-3xl font-bold text-gray-800">Create Your Account</h2>
+        <div className="max-w-2xl px-4 py-5 mx-auto shadow-none md:w-full">
             <form onSubmit={signUp} class="space-y-5">
             
                 <div className="mt-5">
@@ -32,17 +32,17 @@ export default function SignUp() {
             
                 <div className="mt-5">
                     <label htmlFor="username"class="block mb-1 font-bold text-gray-500">Username</label>
-                    <input type="text" name="username"  className="w-full border-2 border-gray-200 p-3 rounded outline-none focus:border-purple-500" placeholder="User-name"/>
+                    <input type="text" name="username"  className="w-full p-3 border-2 border-gray-200 rounded outline-none focus:border-purple-500" placeholder="User-name"/>
                 </div>
                 
      
                 <div className="mt-5">
                     <label htmlFor="password" class="block mb-1 font-bold text-gray-500">Password</label>
-                    <input type="password" name="password"  className="w-full border-2 border-gray-200 p-3 rounded outline-none focus:border-purple-500"  placeholder="Password"/>
+                    <input type="password" name="password"  className="w-full p-3 border-2 border-gray-200 rounded outline-none focus:border-purple-500"  placeholder="Password"/>
                 </div>
                
                     {/* <input type="checkbox" id="agree">
-                    <label className="ml-2 text-gray-700 text-sm">I agree to the terms and privacy.</label> */}
+                    <label className="ml-2 text-sm text-gray-700">I agree to the terms and privacy.</label> */}
           
                 <div className="mt-10">
                     <button type="submit" class="block w-full bg-yellow-400 hover:bg-yellow-300 p-4 rounded text-yellow-900 hover:text-yellow-800 transition duration-300">Sign up</button>
