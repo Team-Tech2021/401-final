@@ -1,3 +1,4 @@
+import Image from "next/image";
 export default function Header(props) {
   return (
     <header>
@@ -10,7 +11,13 @@ export default function Header(props) {
                   href="/"
                   className="text-xl font-bold text-gray-800 hover:text-gray-700 md:text-2xl"
                 >
-                  Logo
+                  <Image
+                    className="w-full"
+                    src="https://i.ibb.co/fXhktjy/Image-from-i-OS.jpg"
+                    alt="Tiger"
+                    width={100}
+                    height={100}
+                  />
                 </a>
               </div>
 
