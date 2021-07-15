@@ -44,18 +44,21 @@ function mockFetchOne(id) {
 
 async function webFetchAll() {
 
+
     const base = 'https://kuro-space-rest-api.herokuapp.com/'
 
     try {
 
         const tokenResponse = await axios.post(base + 'api/token/', {
+
             username: "kuro",
             password: "koko@123",
         });
+        console.log(tokenResponse.data)
 
         const { refresh, access } = tokenResponse.data;
 
-        const config = {
+        const config = {         
             headers: { Authorization: `Bearer ${access}` }
         };
 
@@ -74,7 +77,9 @@ async function webFetchAll() {
 
 async function webFetchOne(id) {
 
+
     const base = 'https://kuro-space-rest-api.herokuapp.com/'
+
 
 
     try {
