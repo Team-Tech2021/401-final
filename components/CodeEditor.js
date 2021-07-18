@@ -44,7 +44,7 @@ export default function CodeEditor(props) {
   const [problemId, setProblemId] = useState(props.id);
   const [hint, setHint] = useState("");
 
-  console.log({ problemmm: problemId });
+  // console.log({ problemmm: problemId });
 
   //Gets the problem that has the id given from the problems page
   useEffect(() => {
@@ -96,7 +96,7 @@ export default function CodeEditor(props) {
     const { refresh, access } = tokenResponse.data;
 
     setTokenCode(access);
-    console.log(access);
+    // console.log(access);
     const config = {
       method: "post",
       headers: { Authorization: `Bearer ${access}` },

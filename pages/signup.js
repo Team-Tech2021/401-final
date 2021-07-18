@@ -1,6 +1,6 @@
 import SignUp from '../components/LoginComponents/signup'
 import Header from '../components/Header'
-import Footer from '../components/Footer'
+import Footer from '../components/Footers/Footer'
 import { useState } from 'react'
 export default function SignUpForm() {
     const [user, sesrUser] = useState("")

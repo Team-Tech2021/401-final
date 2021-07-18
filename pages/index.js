@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Header from '../components/Header'
 import Main from '../components/Main'
-import Footer from '../components/Footer'
+import Footer from '../components/Footers/Footer'
 import Link from 'next/dist/client/link'
 import { useState } from 'react'
 import { fetchAll } from '../services/problems-fetcher'

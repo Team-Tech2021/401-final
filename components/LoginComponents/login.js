@@ -1,6 +1,6 @@
 
 import Link from "next/dist/client/link"
-import Footer from "../Footer"
+import Footer from "../Footers/Footer"
 export default function LoginForm({submitLogin}) {
     function handleLogin(e) {
         e.preventDefault()
@@ -27,11 +27,11 @@ export default function LoginForm({submitLogin}) {
             <div className="md:w-full max-w-2xl mx-auto px-4 py-5 shadow-none">
                 
                     <label className="block text-gray-700 text-sm font-bold mb-2 ml-3" >User Name</label>
-                    <input className="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"type="text" id="username" placeholder="Enter your ysername" name="username" required/>
+                    <input className="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"type="text" id="username" placeholder="Enter your username" name="username" required/>
                     <label className="block text-gray-700 text-sm font-bold mb-2 ml-3">Password</label>
                     <input className="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"type="password" id="password" placeholder="Enter your password" name="password" required/>
             </div>
-                    <button  class="block w-full bg-yellow-400 hover:bg-yellow-300 p-4 rounded text-yellow-900 hover:text-yellow-800 transition duration-300" type="submit">Sign in</button>
+                    <button  className="block w-full bg-yellow-400 hover:bg-yellow-300 p-4 rounded text-yellow-900 hover:text-yellow-800 transition duration-300" type="submit">Sign in</button>
                     <div className="max-w-lg mx-auto text-center mt-12 mb-6">
                     <p className="text-black font-bold ">First Time? <Link href="/signup" className="font-bold hover:underline">Sign up</Link>.</p>
             </div>
