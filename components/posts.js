@@ -12,7 +12,7 @@ export async function fetchData(req) {
         const response = await axios.get(`${base_url}/${req}`);
         return response.data;
     } catch (error) {
-        console.log(error)
+        // console.log(error)
     }
 }
 

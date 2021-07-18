@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import Head from "next/dist/next-server/lib/head";
 import Whiteboard from '../components/whiteboard';
-import Footer from "../components/Footer";
+import Footer from "../components/Footers/Footer";
 
 
 

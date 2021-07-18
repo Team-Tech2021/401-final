@@ -51,9 +51,7 @@ export default function Main(props) {
                     {item.problem}{" "}
                   </div>
                   <p className="text-base text-gray-700">
-                    {item.description} Lorem ipsum dolor sit amet, consectetur
-                    adipisicing elit. Voluptatibus quia, nulla! Maiores et
-                    perferendis eaque, exercitationem praesentium nihil.
+                    {item.description} 
                   </p>
                 </div>
                 <div className="flex items-center">

@@ -48,7 +48,9 @@ export default function Header(props) {
                 href="/replit"
                 className="block mx-4 mt-2 text-sm text-gray-700 capitalize md:mt-0 hover:text-blue-600"
               >
+                
                 Code Editor{" "}
+                
               </a>
               <a
                 href="/"

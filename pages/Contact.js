@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Header from "../components/Header";
 import Head from "../components/Head";
-import Footer from "../components/Footer";
+import Footer from "../components/Footers/Footer";
 import { useState } from "react";
 
 export default function Contact() {
@@ -55,7 +55,7 @@ export default function Contact() {
             height={500}
           />
           <div className="px-6 py-4">
-            <div className="mb-2 text-xl font-bold">Rawan Abo Yasen</div>
+            <div className="mb-2 text-xl font-bold">Rawan Abu Yasein</div>
            
           </div>
           <div className="px-6 pt-4 pb-2">

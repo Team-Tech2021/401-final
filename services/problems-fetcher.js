@@ -54,7 +54,7 @@ async function webFetchAll() {
             username: "kuro",
             password: "koko@123",
         });
-        console.log(tokenResponse.data)
+        // console.log(tokenResponse.data)
 
         const { refresh, access } = tokenResponse.data;
 
@@ -63,7 +63,7 @@ async function webFetchAll() {
         };
 
         const problemsResponse = await axios.get(base + "api/v1/problem/", config);
-        console.log(problemsResponse.data)
+        // console.log(problemsResponse.data)
 
         return problemsResponse.data
 
