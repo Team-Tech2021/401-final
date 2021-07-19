@@ -72,11 +72,9 @@ function ProblemsList({ problems }) {
        </div>
 
             </div>
-
             </div>
-
             </div> 
-                <h2 className="mb-2 text-xl font-bold text-gray-900 font-medium justify-self-center"> Problems list</h2>
+                <h2 className=" font-bold text-gray-900 sm:text-3xl md:text-3xl justify-self-center"> Problems list</h2>
                 <div className="grid grid-cols-1 gap-5 p-10 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-3">
                     <ul>
                         {problems.map(problem => (
@@ -85,7 +83,7 @@ function ProblemsList({ problems }) {
                                 <li>
                                     <Link href="board/[id].js" as={`board/${problem.id}`}>
                                         <a className="w-full lg:max-w-full">
-                                            <div className="flex flex-col justify-between p-4 leading-normal bg-white border-gray-400 rounded-b lg:border-l-0 lg:border-t lg:border-gray-400 lg:rounded-b-none lg:rounded-r">
+                                            <div className=" font-bold  flex flex-col text-blue-600 justify-between p-4 leading-normal bg-white border--600 rounded-b lg:border-l-0 lg:border-t lg:border-gray-600 lg:rounded-b-none lg:rounded-r">
                                                 <p id={problem.id}>
                                                     {problem.description}
 
@@ -110,7 +108,7 @@ function ProblemItem({ problem }) {
         
         <li>
             <Link href="board/[id].js" as={`board/${problem.id}`}>
-                <a>
+                <a className= "font-bold text-gray-900 sm:text-3xl md:text-3xl justify-self-center">
                     {problem.title}
                 </a>
             </Link>
